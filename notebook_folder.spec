@@ -13,14 +13,6 @@
 import os
 import glob
 
-#pathex = os.path.dirname(os.path.realpath(__file__))
-
-try:
-    pathex = os.path.dirname(os.path.abspath(__file__))
-except NameError:  # We are the main py2exe script, not a module
-    import sys
-    pathex = os.path.dirname(os.path.abspath(sys.argv[0]))
-
 pathex=["<Path to zmq package>"]
 
 a = Analysis(['jupyter_notebook.py'],
