@@ -106,4 +106,7 @@ Pipfile.lock
 # Vs code
 .vscode
 
+# Other
 nb/
+*.zip
+
