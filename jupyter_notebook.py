@@ -47,53 +47,12 @@ if mode == "kernel":
     args = ["kernel"]
     args.extend(cmd_args)
     IPython.start_ipython(args)
-
 elif mode == "nbconvert":
     # run nbconvert with passed commands
     args = ["nbconvert"]
     args.extend(cmd_args)
-    #IPython.start_ipython(args)
-
 else:
     # Run IPython Notebook
     args = None
     from notebook import notebookapp as app
     app.launch_new_instance()
-
-    # Disable below two lines to not automatically start notebook
-    #args = ["notebook"]
-    #args.extend(cmd_args)
-
-    #IPython.start_ipython(args)
-
-'''
-# Imports for pyinstaller / py2exe
-import IPython.extensions
-import IPython.extensions.storemagic
-
-import IPython.utils
-
-import IPython.html.notebookapp
-import IPython.html.base.handlers
-import IPython.html.tree.handlers
-import IPython.html.auth.login
-import IPython.html.auth.logout
-import IPython.html.notebook.handlers
-import IPython.html.services.kernels.handlers
-import IPython.html.services.notebooks.handlers
-import IPython.html.services.clusters.handlers
-import IPython.kernel
-import IPython.kernel.ioloop
-
-# inports for notebooks
-import os
-import pandas
-import datetime.datetime
-import dateutil
-
-import matplotlib
-import numpy
-import matplotlib.pyplot
-import matplotlib.patches
-import matplotlib.dates
-'''

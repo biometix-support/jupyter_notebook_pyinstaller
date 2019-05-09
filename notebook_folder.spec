@@ -13,17 +13,11 @@
 import os
 import glob
 
-pathex=["<Path to zmq package>"]
-
 a = Analysis(['jupyter_notebook.py'],
-             pathex=pathex,
-             hiddenimports=['IPython','zmq.backend.cffi','jupyter','notebook',
-              'zmq.backend.cython.constants', 'zmq.backend.cython.error',
-             'zmq.backend.cython.socket','zmq.backend.cython.utils','zmq.backend.cython._poll','zmq.backend.cython._version','zmq.backend.cython._device',
-             'zmq.backend.cython','zmq.backend','zmq.sugar.attrsettr','zmq.sugar.poll','zmq.sugar.socket','zmq.sugar.context','zmq.sugar.frame',
-             'zmq.sugar.tracker','zmq.sugar.version','zmq.sugar.stopwatch','zmq.sugar','zmq.backend.cython.error','zmq','send2trash', 'html.parser','entrypoints','defusedxml',
+             hiddenimports=['IPython','zmq.backend.cffi','jsonschema','ipython_genutils','zmq.backend.cffi','jupyter','notebook', 
+             'send2trash', 'html.parser','entrypoints','defusedxml',
              'mistune','pygments','pygments.lexers','pygments.formatters','pygments.util','pandocfilters','nbformat','nbconvert',
-             'ipykernel.datapub','backcall'],
+             'ipykernel.datapub','backcall','traitlets', 'six'],
              hookspath=None,
              runtime_hooks=None)
 
@@ -59,7 +53,7 @@ exe = EXE(pyz,
           #a.scripts + [('v', '', 'OPTION')],
           a.scripts,
           exclude_binaries=True,
-          name='notebook.exe',
+          name='server.exe',
           debug=False,
           strip=None,
           upx=False,
@@ -71,4 +65,4 @@ coll = COLLECT(exe,
                a.datas,
                strip=None,
                upx=False,
-               name='notebook')
+               name='server')
