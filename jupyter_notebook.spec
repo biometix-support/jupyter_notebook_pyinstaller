@@ -33,7 +33,7 @@ for f in files:
     ipe_extra_datas.append((f, '.'))
 print("Extra data: ",ipe_extra_datas)
 
-a = Analysis(['jupyter_notebook_new.py'],
+a = Analysis(['jupyter_notebook.py'],
 #             pathex=['/Users/philipmucci/Work/epmt.git'],
              binaries=[],
              datas=ipe_extra_datas,
@@ -51,7 +51,7 @@ exe = EXE(pyz,
           a.scripts,
           [],
           exclude_binaries=True,
-          name='jupyter_notebook_new',
+          name='jupyter_notebook',
           debug=False,
           bootloader_ignore_signals=False,
           strip=True,
@@ -64,4 +64,4 @@ coll = COLLECT(exe,
                strip=True,
                upx=True,
                upx_exclude=[],
-               name='jupyter_notebook_new')
+               name='jupyter_notebook')

@@ -1,58 +1,51 @@
-#from notebook import notebookapp as app
-#app.launch_new_instance()
+#!//usr/bin/env python3
+from logging import getLogger
+logger = getLogger(__name__)  # you can use other name
 
-###############################################################
-#   @file
-#   @brief  Main bootstrap file for running ipython notebook.
-#           Place this in the same folder as notebook_*.spec and run
-#           #> pyinstaller -y notebook_single_exe.spec
-#           or
-#           #> pyinstaller -y notebook_folder.spec
-#
-#           Resulting .exe can be run directly to start ipython notebook,
-#           or with argument including kernel to run ipython notebook kernel.
-#           or with argument including nbconvert to convert notebook into html etc.
+# Takes string
+# Returns list of successfully deleted jobid's as strings
 
-import sys
-import IPython
+def jupyter_notebook(arglist):
+    logger.info("epmt_notebook: %s",str(arglist))
 
-# Parse command line to check for kernel mode and clean up extraneous commands
-mode = None
-cmd_args = []
-all_args = sys.argv
-for index, arg in enumerate(all_args):
-    if index == 0:  # remove exe name
-        pass
-    elif arg == "notebook":
-        mode = "notebook"
-        pass
-    elif arg == "nbconvert":
-        mode = "nbconvert"
-        pass
-    elif arg == "kernel":
-        mode = "kernel"
-        pass
-    elif arg == "-c":  # when spawned by main notebook.exe to run kernel, this will be present but not needed for our use
-        if "kernel" in all_args[index + 1]:
+    mode = None
+    cmd_args = []
+    all_args = arglist
+    for index, arg in enumerate(all_args):
+        if arg == "kernel":
             mode = "kernel"
-        del all_args[index + 1]  # the following argument will be undesirable for our use
-        pass
-    elif arg == "notebook.py":  # remove this if it's run locally (not in exe)
-        pass
-    else:
-        cmd_args.append(arg)
+            pass
+        else:
+            cmd_args.append(arg)
 
-if mode == "kernel":
-    # run kernel with passed commands
-    args = ["kernel"]
-    args.extend(cmd_args)
-    IPython.start_ipython(args)
-elif mode == "nbconvert":
-    # run nbconvert with passed commands
-    args = ["nbconvert"]
-    args.extend(cmd_args)
-else:
-    # Run IPython Notebook
-    args = None
-    from notebook import notebookapp as app
-    app.launch_new_instance()
+    if mode == "kernel":  # run iPython kernel with passed ops
+        args = ["kernel"]
+        args.extend(cmd_args)
+        # This does not want argv[0]
+        logger.info("ipython kernel argv: %s",str(args))
+        from IPython import start_ipython, start_kernel
+        rv = start_ipython(argv=args)
+    else:                 # Run IPython Notebook with passed ops
+        import sys
+        from os.path import realpath
+        from os import getcwd
+        me = realpath(sys.argv[0])
+        logger.debug("Using %s as binary" ,me)
+        args = []
+        args.extend(["--notebook-dir="+getcwd(),
+                     # If this is being run as a subcommand, be sure to insert it here, below example is for subcommand notebook
+                     # and also using argparse, note the -- to terminate argument parsing
+                     # "--KernelManager.kernel_cmd=['"+me+"', 'notebook', 'kernel', '--', '-f', '{connection_file}']"])
+                     "--KernelManager.kernel_cmd=['"+me+"', 'kernel', '-f', '{connection_file}']"])
+        args.extend(all_args)
+        logger.info("notebook argv: %s",str(args))
+        from notebook import notebookapp
+        rv = notebookapp.launch_new_instance(argv=args)
+    return True
+
+if __name__== "__main__":
+  import sys
+  from logging import basicConfig, DEBUG
+  basicConfig(level=DEBUG)
+  jupyter_notebook(sys.argv)
+  

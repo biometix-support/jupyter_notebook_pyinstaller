@@ -1,2 +1,2 @@
 #!/bin/bash
-pyinstaller jupyter_notebook_new.spec --onefile --icon=app.ico
+pyinstaller jupyter_notebook.spec --clean --onefile --icon=app.ico
