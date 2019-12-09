@@ -34,7 +34,6 @@ for f in files:
 print("Extra data: ",ipe_extra_datas)
 
 a = Analysis(['jupyter_notebook.py'],
-#             pathex=['/Users/philipmucci/Work/epmt.git'],
              binaries=[],
              datas=ipe_extra_datas,
              hiddenimports=hidden,
@@ -54,14 +53,12 @@ exe = EXE(pyz,
           name='jupyter_notebook',
           debug=False,
           bootloader_ignore_signals=False,
-          strip=True,
           upx=True,
           console=True )
 coll = COLLECT(exe,
                a.binaries,
                a.zipfiles,
                a.datas,
-               strip=True,
                upx=True,
                upx_exclude=[],
                name='jupyter_notebook')
