@@ -12,7 +12,7 @@ Please contact m.mitchell@biometix.com or support@biometix.com with any question
 # Requirements
 
 * Python 3.6 or greater
-* pipenv is require, can be installed with pip install pipenv
+* pipenv is required, can be installed with pip install pipenv
 * virtualenv == 16.2.0
 
 # Instructions
@@ -32,7 +32,7 @@ build_win_exe.bat
 export PIPENV_VENV_IN_PROJECT=1
 pipenv install
 pipenv shell
-build_lin_exe.sh
+build_linux.sh
 ```
 
-You will now have an executable in nb to run jupyter notebook.
+You will now have an executable in dist/jupyter_notebook_new to run jupyter notebook.
